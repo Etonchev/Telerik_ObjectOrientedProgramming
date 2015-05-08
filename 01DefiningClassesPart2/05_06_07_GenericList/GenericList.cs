@@ -13,15 +13,12 @@ public class GenericList<T>
     }
     public void Add(T element)
     {
-        if(this.index == this.array.Length - 1)
+        if (this.index == this.array.Length - 1)
         {
-            Console.WriteLine("Array is full !");
+            Expand();
         }
-        else
-        {
-            array[index] = element;
-            this.index++;
-        }
+        array[index] = element;
+        this.index++;
     }
     public T this[int position]
     {
@@ -51,6 +48,11 @@ public class GenericList<T>
     }
     public void InsertAt(T element, int position)
     {
+        if (position == this.array.Length - 1)
+        {
+            Expand();
+        }
+
         T[] result = new T[this.array.Length + 1];
         this.index++;
         Array.Copy(this.array, 0, result, 0, position);
@@ -77,7 +79,7 @@ public class GenericList<T>
         }
         return result;
     }
-    
+
     public void Expand()
     {
         T[] result = new T[this.array.Length * 2];
@@ -124,5 +126,12 @@ public class Test
         Console.WriteLine(array.ToString());
         Console.WriteLine(array.Min());
         Console.WriteLine(array.Max());
+        Console.WriteLine();
+        array.Add(10);
+        array.Add(10);
+        array.Add(10);
+        array.Add(10);
+        array.Add(10);
+        Console.WriteLine(array.ToString());
     }
 }
